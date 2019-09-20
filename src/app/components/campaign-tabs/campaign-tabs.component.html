@@ -1,0 +1,23 @@
+<div class="kendoTabContainer">
+  <kendo-tabstrip (tabSelect)="onTabSelect($event)" #tabstrip>
+
+    <kendo-tabstrip-tab title="{{'upcomingCampaigns' | translate}}" selected="true">
+      <ng-template kendoTabContent>
+        <app-campaign [campaignData]="upcomingCampaignData"></app-campaign>
+      </ng-template>
+    </kendo-tabstrip-tab>
+
+    <kendo-tabstrip-tab title="{{'liveCampaigns' | translate}}" >
+      <ng-template kendoTabContent>
+        <app-campaign [campaignData]="liveCampaignData"></app-campaign>
+      </ng-template>
+    </kendo-tabstrip-tab>
+
+    <kendo-tabstrip-tab title="{{'pastCampaigns' | translate}}" >
+      <ng-template kendoTabContent>
+        <app-campaign [campaignData]="pastCampaignData"></app-campaign>
+      </ng-template>
+    </kendo-tabstrip-tab>
+
+  </kendo-tabstrip>
+</div>

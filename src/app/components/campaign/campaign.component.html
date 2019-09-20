@@ -1,0 +1,77 @@
+<div class="k-widget k-grid">
+    <div class="k-grid-aria-root" role="grid" aria-rowcount="" aria-colcount="3">
+      <div class="k-grid-container ng-star-inserted">
+        <div class="k-grid-content k-virtual-content" tabindex="-1">
+          <div class="k-grid-table-wrap">
+            <table class="k-grid-table" style="transform: translateY(0px); border-collapse: collapse;">
+              <!-- <colgroup kendogridcolgroup="">
+                <col class="ng-star-inserted" width= 15%>
+                <col class="ng-star-inserted" width= 45%>
+                <col class="ng-star-inserted" width= 40%>
+              </colgroup> -->
+              <thead kendogridheader style="border-bottom: 1px solid #dde2e7">
+                <tr kendogridlogicalrow>
+                  <th kendogridlogicalcell role="columnheader">{{'date' | translate}} </th> 
+                  <th kendogridlogicalcell role="columnheader">{{'eventcampaign' | translate}} </th>
+                  <th kendogridlogicalcell role="columnheader">{{'view' | translate}} </th>
+                  <th kendogridlogicalcell role="columnheader">{{'actions' | translate}} </th>
+                </tr>
+              </thead>
+              <tbody kendogridtablebody="" *ngIf="campaignData?.length > 0" >
+                <tr *ngFor="let item of campaignData; let i=index;" kendogridlogicalrow="" data-kendo-grid-item-index="0"
+                  role="row" aria-rowindex="" class="ng-star-inserted">
+  
+                  <!--- first date column-->
+                  <td role="gridcell" colspan="1">
+                  {{getDate(item['date']) | date:'yyyy-MM-d'}} <br> {{item.lag}}
+                  </td>
+  
+                  <!--- second campaign column-->
+                  <td role="gridcell" colspan="1">
+                      <span>{{item.campaignDetails.name}}</span><br><span>{{item.campaignDetails.country}}</span>
+                  </td>
+  
+                  <!--- third view column-->
+                  <td  role="gridcell" colspan="1">
+                    <button (click)="openDialog(item)">VIEW</button>                      
+                  </td>
+
+                  <td role="gridcell" colspan="1">
+                      <kendo-datepicker [value]="getDate(item['date'])" 
+                            (valueChange)="handleDateChange($event, item)"></kendo-datepicker>
+                            <!-- <button (click)="openCalendar= true">Open Calender</button>
+                            <kendo-calendar *ngIf="openCalendar" [value]="getDate(item['date'])"></kendo-calendar> -->
+                          
+                  </td>
+                </tr>
+              </tbody>
+              <tbody *ngIf="campaignData?.length < 1">
+                <tr class="k-grid-norecords ng-star-inserted">
+                  <td colspan="6">
+                      {{'settings.labels.noRecordsMsg' | translate}} </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="k-height-container">
+            <div style="height: 0px;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <kendo-dialog title="{{'details' | translate}}" *ngIf="openDetailsDialogue" (close)="openDetailsDialogue = false"
+  [minWidth]="250" [width]="450">
+  <div>
+    <label style="font-weight: bold;">Date of event : </label>
+   <span>{{getDate(selectedEvent['date']) | date:'yyyy-MM-d'}}  ({{selectedEvent.lag}})</span>
+  </div>
+  <p>
+    <label style="font-weight: bold;">Type of Event : </label>
+    <span>{{selectedEvent.campaignDetails.name}}</span>
+  </p>
+  <p>
+      <label style="font-weight: bold;">Place of Event : </label>
+      <span>{{selectedEvent.campaignDetails.country}}</span>
+    </p>
+</kendo-dialog>
